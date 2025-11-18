@@ -9,13 +9,13 @@ import (
 )
 
 type HTTPServer struct {
-	Address string
+	Address string `yaml:"address"`
 }
 
 type Config struct {
-	Env         string `yaml:"env env:"ENV env-required:"true"`
-	StoragePath string `yaml:storage_path env-required:"true"`
-	HTTPServer  `yaml:http_server`
+	Env         string `yaml:"env" env:"ENV" env-required:"true"`
+	StoragePath string `yaml:"storage_path" env-required:"true"`
+	HTTPServer  `yaml:"http_server"`
 }
 
 func MustLoad() *Config {
@@ -39,7 +39,6 @@ func MustLoad() *Config {
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		log.Fatalf("config file does not exist: %s", configPath)
 	}
-
 
 	var cfg Config
 
